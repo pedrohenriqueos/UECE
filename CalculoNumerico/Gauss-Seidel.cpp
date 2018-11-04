@@ -151,6 +151,7 @@ void CriteriodeSassenfeld(){
         for(int j=i+1;j<A.M;j++)
             sum+=fabs(A.Mat[i][j]);
         sum/=fabs(A.Mat[i][i]);
+        v.Mat[i][0]=sum;
         if(sum>=1.0){
             puts("Nao respeita o Criterio de Convergencia de Sassenfeld");
             exit(1);
@@ -192,7 +193,7 @@ void Lagrange(){
 	result.Mat[1][0] = X.Mat[1][0], result.Mat[1][1] = b.Mat[1][0];
 	equacao.first = (b.Mat[0][0]/(X.Mat[0][0]- X.Mat[1][0])) + (b.Mat[1][0]/(X.Mat[1][0] - X.Mat[0][0]));
 	equacao.second = ((-b.Mat[0][0]*X.Mat[1][0])/(X.Mat[0][0] - X.Mat[1][0]))+((-b.Mat[1][0]*X.Mat[0][0])/(X.Mat[1][0] - X.Mat[0][0]));
-    for(int i=2;i<X.N;i++){ //Calculo dos demais valores aproximados pela reta feita.
+	for(int i=2;i<X.N;i++){ //Calculo dos demais valores aproximados pela reta feita.
 		long double p=b.Mat[0][0]*(X.Mat[i][0]-X.Mat[1][0])/(X.Mat[0][0] - X.Mat[1][0]);
 		p+=b.Mat[1][0]*(X.Mat[i][0]-X.Mat[0][0])/(X.Mat[1][0] - X.Mat[0][0]);
 		result.Mat[i][0] = X.Mat[i][0], result.Mat[i][1] = p;
@@ -202,10 +203,10 @@ void Lagrange(){
 int main(){
 	inputs();
 	CriteriodeSassenfeld();
-    CriterioLinhas();
+	CriterioLinhas();
 	Gerar_RLD();
 	GaussSeidel();
-    Lagrange();
+	Lagrange();
 	output();
 }
 /* 
